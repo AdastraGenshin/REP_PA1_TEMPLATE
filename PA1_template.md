@@ -1,8 +1,4 @@
----
-output:
-  html_document:
-    keep_md: yes
----
+
 ###Peer Assessment 1
 
 ##Loading and preprocessing the data
@@ -16,7 +12,6 @@ Process/transform the data (if necessary) into a format suitable for your analys
 
 ```r
 #1
-setwd("~/Git/R/reproducible_research/Assesment/a1/")
 data_a1 <- read.csv("activity.csv")
 str(data_a1[,"date"])
 ```
@@ -71,7 +66,7 @@ steps_per_day_total
 hist(steps_per_day_total)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
 ```r
 #2.3
@@ -106,7 +101,7 @@ steps_of_interval_avaraged_across_all_days<- tapply(data_a1$steps,data_a1$interv
 plot(steps_of_interval_avaraged_across_all_days,type="l")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 ```r
 #3.2
@@ -149,7 +144,7 @@ steps_per_day_total <- tapply(data_a1$steps,data_a1$date,sum,na.rm=TRUE)
 hist(steps_per_day_total)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
 
 ```r
 median_a1 <- median(steps_per_day_total)
@@ -175,35 +170,21 @@ Answer: these values differ from the estimates from the first part of the assign
 
 For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
 
-Create a new factor variable in the dataset with two levels â€<93> â€œweekdayâ€<9d> and â€œweekendâ€<9d> indicating whether a given date is a weekday or weekend day.
+Create a new factor variable in the dataset with two levels â€“ â€œweekdayâ€ and â€œweekendâ€ indicating whether a given date is a weekday or weekend day.
 
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
 ```r
 #5.1
 pattern <- seq_len(nrow(data_a1))
-NANANA
-```
-
-```
-## [1] NA
-```
-
-```r
-NANANA
-```
-
-```
-## [1] NA
-```
-
-```r
+pattern[weekdays(as.Date(data_a1$date))!="æ˜ŸæœŸå…­"&weekdays(as.Date(data_a1$date))!="æ˜ŸæœŸæ—¥"] <- c("weekday")
+pattern[!(weekdays(as.Date(data_a1$date))!="æ˜ŸæœŸå…­"&weekdays(as.Date(data_a1$date))!="æ˜ŸæœŸæ—¥")] <- c("weekend")
 pattern <- as.factor(pattern)
 str(pattern)
 ```
 
 ```
-##  Factor w/ 17568 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
+##  Factor w/ 2 levels "weekday","weekend": 1 1 1 1 1 1 1 1 1 1 ...
 ```
 
 ```r
@@ -221,27 +202,7 @@ steps_of_interval_avaraged_across_all_days_weekday<- tapply(data_a1$steps[data_a
 plot(steps_of_interval_avaraged_across_all_days_weekday,type="l",ylab="weekday")
 ```
 
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): 'xlim'Öµ²»ÄÜÊÇÎŞÏŞµÄ
-```
-
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
 
 ```r
 steps_of_interval_avaraged_across_all_days_weekend<- tapply(data_a1$steps[data_a1$pattern=="weekend"],data_a1$interval[data_a1$pattern=="weekend"],sum,na.rm=TRUE)/d_e
@@ -251,24 +212,4 @@ steps_of_interval_avaraged_across_all_days_weekend<- tapply(data_a1$steps[data_a
 plot(steps_of_interval_avaraged_across_all_days_weekend,type="l",ylab="weekend")
 ```
 
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): 'xlim'Öµ²»ÄÜÊÇÎŞÏŞµÄ
-```
-
-![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 
